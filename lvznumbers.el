@@ -3,7 +3,7 @@
 
 ;; Copyright © 2018, Nikos Skarmoutsos
 
-;; Version: 1.1.0
+;; Version: 1.2.0
 ;; Author: Nikos Skarmoutsos <elvizakos AT yahoo DOT gr>
 ;; Maintainer: Nikos Skarmoutsos
 ;; Created: May 2018
@@ -15,8 +15,11 @@
 
 ;;---- CONSTANTS ------------------------------------------------------------------
 
-(defconst lvznumbers-version "1.0.0"	; LVzNumbers version.
-  "LVzNumbers version.")
+(defconst lvznumbers-version "1.2.0" "LVzNumbers version.")
+
+;;---- VARIABLES ------------------------------------------------------------------
+
+(defvar lvznumbers-keymap (make-sparse-keymap) "Keymap for lvznumbers.")
 
 ;;---- FUNCTIONS ------------------------------------------------------------------
 
@@ -132,12 +135,173 @@
 	(replace-match (number-to-string (/ (+ 0.0 (string-to-number (match-string 0))) (string-to-number (substring-no-properties (car kill-ring))))))
 	(goto-char start)))
 
+(defun number-type () ; Επιστρέφει τον τύπο του αριθμού στη θέση του δρομέα ή 'nil' αν δεν υπάρχει αριθμός.
+  "Επιστρέφει τον τύπο του αριθμού στη θέση του δρομέα ή 'nil' αν δεν υπάρχει αριθμός."
+  (interactive)
+  (let ((cpoint (point)))
+	(skip-chars-backward "0-9")
+	(skip-chars-backward "-")
+	(if (not (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?"))
+		(progn
+		  (goto-char cpoint)
+		  (if (not (looking-at "[0-9a-z]+"))
+			  (progn
+				)
+			"hexadecimal"))
+	  "decimal")))
+
+(defun lvznumbers-find-first-closing-bracket (str)	; Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil.
+  "Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil."
+  (if (and
+	   (string-match-p "(" str)
+	   (string-match-p ")" str))
+	  (let* (
+			 (e (string-match ")" str))
+			 (s (substring str 0 e))
+			 (b (- (length s) (string-match "(" (reverse s))))
+			 )
+		(list
+		 (substring s 0 (1- b))
+		 (substring s b e)
+		 (substring str (1+ e))
+		 ))
+	nil))
+
+(defun lvznumbers-do-math (op n1 n2)	; Πραγματοποίηση πράξης μεταξύ δυο αριθμών.
+  "Πραγματοποίηση πράξης μεταξύ δυο αριθμών."
+  (setq
+   n1 (float n1)
+   n2 (float n2))
+  (cond
+   ((or (string= "**" op) (string= "^" op)) (expt n1 n2)) ; Power
+   ((or (string= "//" op) (string= "√" op)) (expt n1 (/ 1.0 n2))) ; Root
+   ((or (string= "*" op) (string= "×" op) (string= "·" op)) (* n1 n2)) ; Multiplication
+   ((or (string= "/" op) (string= "÷" op) (string= ":" op)) (/ n1 n2)) ; Division
+   ((string= "\\" op) (truncate (/ n1 n2))) ; Integer division
+   ((string= "%" op) (mod n1 n2)) ; Division remainder
+   ((string= "+" op) (+ n1 n2)) ; Addittion
+   ((or (string= "-" op) (string= "—" op)) (- n1 n2)) ; Subtraction
+   ))
+
+(defun lvznumbers-do-parenthesis (str)	; Πραγματοποίηση πράξεων εντός παρένθεσης.
+  "Πραγματοποίηση πράξεων εντός παρένθεσης."
+
+  (let (
+		(mp1 0)
+		(mop "")
+		(nbr1 "")
+		(nbr2 "")
+		(str1 "")
+		(str2 "")
+		)
+	(while								; Powers and Roots
+		(progn
+			 (setq mp1 (string-match "[/]\\{2\\}\\|√\\|[*]\\{2\\}\\|[\\^]" str))
+			 (if mp1
+				 (progn
+				   (setq mop (match-string 0 str))
+				   (setq
+					str1 (substring str 0 mp1)
+					str2 (substring str (+ mp1 (length mop))))
+				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (setq nbr1 (match-string 0 str1))
+				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (setq nbr2 (match-string 0 str2))
+				   (setq
+					str1 (substring str1 0 (- (length str1) (length nbr1)))
+					str2 (substring str2 (length nbr2)))
+				   
+				   (setq str (concat str1 (number-to-string (lvznumbers-do-math mop (string-to-number nbr1) (string-to-number nbr2))) str2))
+				   t)
+			   nil)
+			 mp1
+			 )
+	  )
+
+	(while								; Multiplications, Divisions, Integer divisions and Division remainders
+		(progn
+			 (setq mp1 (string-match "[×÷·:*/%\\\\]" str))
+			 (if mp1
+				 (progn
+				   (setq mop (match-string 0 str))
+				   (setq
+					str1 (substring str 0 mp1)
+					str2 (substring str (+ mp1 (length mop))))
+				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (setq nbr1 (match-string 0 str1))
+				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (setq nbr2 (match-string 0 str2))
+				   (setq
+					str1 (substring str1 0 (- (length str1) (length nbr1)))
+					str2 (substring str2 (length nbr2)))
+				   
+				   (setq str (concat str1 (number-to-string (lvznumbers-do-math mop (string-to-number nbr1) (string-to-number nbr2))) str2))
+				   t)
+			   nil)
+			 mp1
+			 )
+	  )
+
+	(while								; Additions and Subtractions
+		(progn
+			 (setq mp1 (string-match "[+—\\-]" str))
+			 (if mp1
+				 (progn
+				   (setq mop (match-string 0 str))
+				   (setq
+					str1 (substring str 0 mp1)
+					str2 (substring str (+ mp1 (length mop))))
+				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (setq nbr1 (match-string 0 str1))
+				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (setq nbr2 (match-string 0 str2))
+				   (setq
+					str1 (substring str1 0 (- (length str1) (length nbr1)))
+					str2 (substring str2 (length nbr2)))
+				   
+				   (setq str (concat str1 (number-to-string (lvznumbers-do-math mop (string-to-number nbr1) (string-to-number nbr2))) str2))
+				   t)
+			   nil)
+			 mp1
+			 )
+	  )
+
+	str
+	))
+
+(defun do-math-on-region ()				; Συνάρτηση για πραγματοποίηση μαθηματικών πράξεων στην επιλεγμένη περιοχή.
+  "Συνάρτηση για πραγματοποίηση μαθηματικών πράξεων στην επιλεγμένη περιοχή."
+  (interactive)
+  (if (use-region-p)
+	  (let (
+			(cpoint (region-beginning))
+			(str (concat "(" (buffer-substring-no-properties (region-beginning) (region-end)) ")"))
+			(tmp (list))
+			)
+		(while (progn
+				 (setq tmp (lvznumbers-find-first-closing-bracket str))
+				 (if tmp
+					 (progn
+					   (setq str (concat (nth 0 tmp) (lvznumbers-do-parenthesis (nth 1 tmp)) (nth 2 tmp)))
+					   ))
+				 tmp
+				 ))
+		(kill-region (region-beginning) (region-end))
+		(goto-char cpoint)
+		(insert str)
+		)
+	(error "There is no selection.")))
+
 ;;---- SHORTCUTS ------------------------------------------------------------------
+
+;;(define-key lvznumbers-keymap (kbd "C-c C-v m") 'do-math-on-region)
 
 (global-set-key (kbd "C-c C-v +") 'addition-with-paste)
 (global-set-key (kbd "C-c C-v -") 'subtract-paste)
 (global-set-key (kbd "C-c C-v *") 'multiply-paste)
 (global-set-key (kbd "C-c C-v /") 'divide-paste)
+
+(global-set-key (kbd "C-M-z m") 'do-math-on-region)
 
 (global-set-key (kbd "C-x +") 'increment-number-at-point)
 (global-set-key (kbd "C-x -") 'decrement-number-at-point)
