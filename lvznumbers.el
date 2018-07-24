@@ -147,8 +147,8 @@
 		  (if (not (looking-at "[0-9a-z]+"))
 			  (progn
 				)
-			"hexadecimal"))
-	  "decimal")))
+			(message "hexadecimal")))
+	  (message "decimal"))))
 
 (defun lvznumbers-find-first-closing-bracket (str)	; Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil.
   "Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil."
@@ -193,6 +193,7 @@
 		(nbr2 "")
 		(str1 "")
 		(str2 "")
+		(tmpm "")
 		)
 	(while								; Powers and Roots
 		(progn
@@ -203,9 +204,9 @@
 				   (setq
 					str1 (substring str 0 mp1)
 					str2 (substring str (+ mp1 (length mop))))
-				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (string-match "[\\-]?[0-9]+\\([.][0-9]+\\)?[ \t\n\r]*$" str1)
 				   (setq nbr1 (match-string 0 str1))
-				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (string-match "^[ \t\n\r]*[\\-]?[0-9]+\\([.][0-9]+\\)?" str2)
 				   (setq nbr2 (match-string 0 str2))
 				   (setq
 					str1 (substring str1 0 (- (length str1) (length nbr1)))
@@ -227,9 +228,9 @@
 				   (setq
 					str1 (substring str 0 mp1)
 					str2 (substring str (+ mp1 (length mop))))
-				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (string-match "[\\-]?[0-9]+\\([.][0-9]+\\)?[ \t\n\r]*$" str1)
 				   (setq nbr1 (match-string 0 str1))
-				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (string-match "^[ \t\n\r]*[\\-]?[0-9]+\\([.][0-9]+\\)?" str2)
 				   (setq nbr2 (match-string 0 str2))
 				   (setq
 					str1 (substring str1 0 (- (length str1) (length nbr1)))
@@ -242,18 +243,19 @@
 			 )
 	  )
 
-	(while								; Additions and Subtractions
+	 (while								; Additions and Subtractions
 		(progn
-			 (setq mp1 (string-match "[+—\\-]" str))
+		  (setq mp1 (string-match "\\([0-9][ \t\n\r]*\\)\\([+—\\-]\\)\\([ \t\n\r]+[\\-]?[0-9]\\)" str))
 			 (if mp1
 				 (progn
-				   (setq mop (match-string 0 str))
+				   (setq mp1 (+ mp1 (length (match-string 1 str))))
+				   (setq mop (match-string 2 str))
 				   (setq
 					str1 (substring str 0 mp1)
 					str2 (substring str (+ mp1 (length mop))))
-				   (string-match "[-]?[0-9]+\\([.][0-9]+\\)?[ 	]*$" str1)
+				   (string-match "[\\-]?[0-9]+\\([.][0-9]+\\)?[ \t\n\r]*$" str1)
 				   (setq nbr1 (match-string 0 str1))
-				   (string-match "^[ 	]*[-]?[0-9]+\\([.][0-9]+\\)?" str2)
+				   (string-match "^[ \t\n\r]*[\\-]?[0-9]+\\([.][0-9]+\\)?" str2)
 				   (setq nbr2 (match-string 0 str2))
 				   (setq
 					str1 (substring str1 0 (- (length str1) (length nbr1)))
@@ -265,6 +267,7 @@
 			 mp1
 			 )
 	  )
+					   
 
 	str
 	))
