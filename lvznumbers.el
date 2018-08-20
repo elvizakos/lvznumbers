@@ -1,4 +1,4 @@
-;;; lvznumbers.el --- Extension for working with numbers.
+;;; lvznumbers-mode.el --- Minor mode for working with numbers and math.
 ;;; -*- coding: utf-8 -*-
 
 ;; Copyright © 2018, Nikos Skarmoutsos
@@ -13,6 +13,8 @@
 
 ;;; Code:
 
+;;(defvar lvznumbers-map nil "Keymap for this minor mode")
+
 ;;---- CONSTANTS ------------------------------------------------------------------
 
 (defconst lvznumbers-version "1.2.0" "LVzNumbers version.")
@@ -21,10 +23,11 @@
 
 (defvar lvznumbers-keymap (make-sparse-keymap) "Keymap for lvznumbers.")
 
+(defvar lvznumbers-increment-decrement 1 "Increment/Decrement value.")
+
 ;;---- FUNCTIONS ------------------------------------------------------------------
 
-(defun increment-number-at-point ()	; Συνάρτηση για αύξηση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαδικοί).
-  "Συνάρτηση για αύξηση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαδικοί)."
+(defun increment-number-at-point () "Function for increment by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
   (interactive)
   (let ((cpoint (point)))
 	(skip-chars-backward "0-9")
@@ -32,11 +35,10 @@
 	(or
 	 (looking-at "[\-]?[0-9]+")
 	 (error "Not a decimal number at point"))
-	(replace-match (number-to-string (1+ (string-to-number (match-string 0)))))
+	(replace-match (number-to-string (+ lvznumbers-increment-decrement (string-to-number (match-string 0)))))
 	(goto-char cpoint)))
 
-(defun increment-digit-at-point () ; Συνάρτηση για αύξηση τιμής μόνο του ψηφίου στον κέρσορα κατά 1.
-  "Συνάρτηση για αύξηση τιμής μόνο του ψηφίου στον κέρσορα κατά 1."
+(defun increment-digit-at-point () "Function for increment by one the decimal digit after cursor."
   (interactive)
   (or
    (looking-at "[0-9]")
@@ -44,8 +46,7 @@
   (replace-match (number-to-string (1+ (string-to-number (match-string 0)))))
   (backward-char 1))
 
-(defun decrement-number-at-point ()	; Συνάρτηση για μείωση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαδικοί).
-  "Συνάρτηση για μείωση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαδικοί)."
+(defun decrement-number-at-point ()	"Function for decrement by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
   (interactive)
   (let ((cpoint (point)))
 	(skip-chars-backward "0-9")
@@ -53,42 +54,38 @@
 	(or
 	 (looking-at "[\-]?[0-9]+")
 	 (error "Not a decimal number at point"))
-	(replace-match (number-to-string (- (string-to-number (match-string 0)) 1)))
+	(replace-match (number-to-string (- (string-to-number (match-string 0)) lvznumbers-increment-decrement)))
 	(goto-char cpoint)))
 
-(defun decrement-digit-at-point () ; Συνάρτηση για μείωση τιμής μόνο του ψηφίου στον κέρσορα κατά 1.
-  "Συνάρτηση για μείωση τιμής μόνο του ψηφίου στον κέρσορα κατά 1."
+(defun decrement-digit-at-point () "Function for decrement by one the decimal digit under cursor."
   (interactive)
   (or
    (looking-at "[0-9]")
    (error "Not a decimal number at point"))
-  (replace-match (number-to-string (- (string-to-number (match-string 0)) 1)))
+  (replace-match (number-to-string (1- (string-to-number (match-string 0)))))
   (backward-char 1))
 
-(defun increment-hex-at-point () ; Συνάρτηση για αύξηση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαεξαδικοί).
-  "Συνάρτηση για αύξηση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαεξαδικοί)."
+(defun increment-hex-at-point () "Function for increment by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
   (interactive)
   (let ((cpoint (point)))
 	(skip-chars-backward "0-9A-Fa-f")
 	(or
 	 (looking-at "[0-9A-Fa-f]+")
 	 (error "Not a hexadecimal number at point"))
-	(replace-match (format "%x" (+ 1 (string-to-number (match-string 0) 16))))
+	(replace-match (format "%x" (+ lvznumbers-increment-decrement (string-to-number (match-string 0) 16))))
   (goto-char cpoint)))
 
-(defun decrement-hex-at-point () ; Συνάρτηση για μείωση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαεξαδικοί).
-  "Συνάρτηση για μείωση τιμής αριθμού στη θέση του κέρσορα κατά 1 (δεκαεξαδικοί)."
+(defun decrement-hex-at-point () "Function for decrement by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
   (interactive)
   (let ((cpoint (point)))
 	(skip-chars-backward "0-9A-Fa-f")
 	(or
 	 (looking-at "[0-9A-Fa-f]+")
 	 (error "Not a hexadecimal number at point"))
-	(replace-match (format "%x" (- (string-to-number (match-string 0) 16) 1)))
+	(replace-match (format "%x" (- (string-to-number (match-string 0) 16) lvznumbers-increment-decrement)))
   (goto-char cpoint)))
 
-(defun addition-with-paste () ; Πρόσθεση του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου.
-  "Πρόσθεση του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου."
+(defun addition-with-paste () "Function for adding the number in kill-ring to the number at cursor and replace the latter."
   (interactive)
   (let ((start (point)))
 	(skip-chars-backward "0-9")
@@ -99,8 +96,7 @@
 	(replace-match (number-to-string (+ (string-to-number (match-string 0)) (string-to-number (substring-no-properties (car kill-ring))))))
 	(goto-char start)))
 
-(defun subtract-paste () ; Αφαίρεση του αριθμού στο πρόχειρο από τον αριθμό στη θέση του δρομέα και αντικατάσταση του δεύτερου.
-  "Αφαίρεση του αριθμού στο πρόχειρο από τον αριθμό στη θέση του δρομέα και αντικατάσταση του."
+(defun subtract-paste () "Function for subtraction of the number in kill-ring from the number at cursor and replace the latter."
   (interactive)
   (let ((start (point)))
 	(skip-chars-backward "0-9")
@@ -111,8 +107,7 @@
 	(replace-match (number-to-string (- (string-to-number (match-string 0)) (string-to-number (substring-no-properties (car kill-ring))))))
 	(goto-char start)))
 
-(defun multiply-paste () ; Πολλαπλασιασμός του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου.
-  "Πολλαπλασιασμός του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου."
+(defun multiply-paste () "Function for multiplying the number in kill-ring with the number at cursor and replace the latter."
   (interactive)
   (let ((start (point)))
 	(skip-chars-backward "0-9")
@@ -123,8 +118,7 @@
 	(replace-match (number-to-string (* (string-to-number (match-string 0)) (string-to-number (substring-no-properties (car kill-ring))))))
 	(goto-char start)))
 
-(defun divide-paste () ; Διαίρεση του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου.
-  "Διαίρεση του αριθμού στη θέση του δρομέα με τον αριθμό στο πρόχειρο και αντικατάσταση του πρώτου."
+(defun divide-paste () "Function for dividing the number in kill-ring to the number at cursor and replace the latter."
   (interactive)
   (let ((start (point)))
 	(skip-chars-backward "0-9")
@@ -135,23 +129,108 @@
 	(replace-match (number-to-string (/ (+ 0.0 (string-to-number (match-string 0))) (string-to-number (substring-no-properties (car kill-ring))))))
 	(goto-char start)))
 
-(defun number-type () ; Επιστρέφει τον τύπο του αριθμού στη θέση του δρομέα ή 'nil' αν δεν υπάρχει αριθμός.
-  "Επιστρέφει τον τύπο του αριθμού στη θέση του δρομέα ή 'nil' αν δεν υπάρχει αριθμός."
+(defun addition-and-copy () "Function for adding the number in kill-ring to the number at cursor and replace the first."
   (interactive)
-  (let ((cpoint (point)))
+  (let (
+		(start (point))
+		(res "")
+		)
 	(skip-chars-backward "0-9")
 	(skip-chars-backward "-")
-	(if (not (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?"))
-		(progn
-		  (goto-char cpoint)
-		  (if (not (looking-at "[0-9a-z]+"))
-			  (progn
-				)
-			(message "hexadecimal")))
-	  (message "decimal"))))
+	(or
+	 (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?")
+	 (error "Not a decimal number at point"))
+	(setq res (number-to-string (+ (string-to-number (match-string 0)) (string-to-number (substring-no-properties (car kill-ring))))))
+	(kill-new res)
+	(goto-char start)
+	(message (format "Added \"%s\" to kill-ring." res))))
 
-(defun lvznumbers-find-first-closing-bracket (str)	; Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil.
-  "Συνάρτηση για επιστροφή της πρώτης παρένθεσης χωρίς άλλες παρενθέσεις μέσα της. Αν δεν υπάρχει παρένθεση, επιστροφή nil."
+(defun subtract-copy () "Function for subtraction of  the number at cursor from the number in kill-ring and replace the first."
+  (interactive)
+  (let (
+		(start (point))
+		(res "")
+		)
+	(skip-chars-backward "0-9")
+	(skip-chars-backward "-")
+	(or
+	 (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?")
+	 (error "Not a decimal number at point"))
+	(setq res (number-to-string (- (string-to-number (substring-no-properties (car kill-ring))) (string-to-number (match-string 0)))))
+	(kill-new res)
+	(goto-char start)
+	(message (format "Added \"%s\" to kill-ring." res))))
+
+(defun multiply-copy () "Function for multiplying the number in kill-ring with the number at cursor and replace the first."
+  (interactive)
+  (let (
+		(start (point))
+		(res "")
+		)
+	(skip-chars-backward "0-9")
+	(skip-chars-backward "-")
+	(or
+	 (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?")
+	 (error "Not a decimal number at point"))
+	(setq res (number-to-string (* (string-to-number (match-string 0)) (string-to-number (substring-no-properties (car kill-ring))))))
+	(kill-new res)
+	(goto-char start)
+	(message (format "Added \"%s\" to kill-ring." res))))
+
+(defun divide-copy () "Function for dividing the number at cursor to the number in kill-ring and replace the first."
+  (interactive)
+  (let (
+		(start (point))
+		(res "")
+		)
+	(skip-chars-backward "0-9")
+	(skip-chars-backward "-")
+	(or
+	 (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?")
+	 (error "Not a decimal number at point"))
+	(setq res (number-to-string (/ (string-to-number (substring-no-properties (car kill-ring))) (+ 0.0 (string-to-number (match-string 0))))))
+	(kill-new res)
+	(goto-char start)
+	(message (format "Added \"%s\" to kill-ring." res))))
+
+(defun number-type () "Function to return the number type under the cursor or 'nil' if there is not a number."
+  (interactive)
+  (let (
+		(cpoint (point))
+		(rett (list))
+		(retstr "")
+		)
+	(skip-chars-backward "0-9a-fA-F")(skip-chars-backward "-")
+	(if (not (looking-at "[\-]?[0-9]+\\([.][0-9]+\\)?\\($\\|[ \t\n\r(.,]\\)")) nil (progn
+																					 (setq retstr (concat retstr ", decimal"))
+																					 (add-to-list 'rett "decimal")))
+	(goto-char cpoint)
+	(skip-chars-backward "0-9a-fA-F")(skip-chars-backward "-")
+	(if (not (looking-at "[0-9a-fA-F]+\\($\\|[ \t\n\r(.,]\\)")) nil (progn
+																	  (setq retstr (concat retstr ", hexadecimal"))
+																	  (add-to-list 'rett "hexadecimal")))
+	(goto-char cpoint)
+	(skip-chars-backward "0-9a-fA-F")(skip-chars-backward "-")
+	(if (not (looking-at "[0-7]+\\($\\|[ \t\n\r(.,]\\)")) nil (progn
+																(setq retstr (concat retstr ", octal"))
+																(add-to-list 'rett "octal")))
+	(goto-char cpoint)
+	(skip-chars-backward "0-9a-fA-F")(skip-chars-backward "-")
+	(if (not (looking-at "[01]+\\($\\|[ \t\n\r(.,]\\)")) nil (progn
+															   (setq retstr (concat retstr ", binary"))
+															   (add-to-list 'rett "binary")))
+	(goto-char cpoint)
+	(if (string= retstr "")
+		(progn
+		  (message "Doesn't match to a number.")
+		  nil)
+	  (progn
+		(setq retstr (substring retstr 2))
+		(message (format "Matches to %s." retstr))
+		rett
+		))))
+
+(defun lvznumbers-find-first-closing-bracket (str) "Function to return the contents of the first parenthesis without other parenthesis in it. If there isn't any parenthesis, it returns 'nil'."
   (if (and
 	   (string-match-p "(" str)
 	   (string-match-p ")" str))
@@ -167,8 +246,7 @@
 		 ))
 	nil))
 
-(defun lvznumbers-do-math (op n1 n2)	; Πραγματοποίηση πράξης μεταξύ δυο αριθμών.
-  "Πραγματοποίηση πράξης μεταξύ δυο αριθμών."
+(defun lvznumbers-do-math (op n1 n2) "Function to do math operation between two numbers."
   (setq
    n1 (float n1)
    n2 (float n2))
@@ -183,8 +261,7 @@
    ((or (string= "-" op) (string= "—" op)) (- n1 n2)) ; Subtraction
    ))
 
-(defun lvznumbers-do-parenthesis (str)	; Πραγματοποίηση πράξεων εντός παρένθεσης.
-  "Πραγματοποίηση πράξεων εντός παρένθεσης."
+(defun lvznumbers-do-parenthesis (str) "Function for doing all math operations in a string without parenthesis."
 
   (let (
 		(mp1 0)
@@ -245,7 +322,7 @@
 
 	 (while								; Additions and Subtractions
 		(progn
-		  (setq mp1 (string-match "\\([0-9][ \t\n\r]*\\)\\([+—\\-]\\)\\([ \t\n\r]+[\\-]?[0-9]\\)" str))
+		  (setq mp1 (string-match "\\([0-9][ \t\n\r]*\\)\\([+—\\-]\\)\\([ \t\n\r]*[\\-]?[0-9]\\)" str))
 			 (if mp1
 				 (progn
 				   (setq mp1 (+ mp1 (length (match-string 1 str))))
@@ -272,8 +349,7 @@
 	str
 	))
 
-(defun do-math-on-region ()				; Συνάρτηση για πραγματοποίηση μαθηματικών πράξεων στην επιλεγμένη περιοχή.
-  "Συνάρτηση για πραγματοποίηση μαθηματικών πράξεων στην επιλεγμένη περιοχή."
+(defun do-math-on-region ()	"Function for doing all math operations in selected area."
   (interactive)
   (if (use-region-p)
 	  (let (
@@ -295,30 +371,138 @@
 		)
 	(error "There is no selection.")))
 
-;;---- SHORTCUTS ------------------------------------------------------------------
+(defun goto-next-number () "Function for moving the cursor to the next number."
+	   (interactive)
+	   (if (looking-at "[0-9]+") (skip-chars-forward "0-9"))
+	   (and
+		(looking-at "[^0-9]+[\-]?[0-9]+")
+		(skip-chars-forward "^0-9")))
 
-;;(define-key lvznumbers-keymap (kbd "C-c C-v m") 'do-math-on-region)
+(defun goto-previous-number () "Function for moving the cursor to the previous number."
+	   (interactive)
+	   (let (
+			 (cpoint (point))
+			 )
+		 (if (looking-back "[0-9]+") (skip-chars-backward "0-9"))
+		 (skip-chars-backward "^0-9")
+		 (skip-chars-backward "0-9")
+		 (if (not (looking-at "[0-9]+"))
+			 (goto-char cpoint))))
 
-(global-set-key (kbd "C-c C-v +") 'addition-with-paste)
-(global-set-key (kbd "C-c C-v -") 'subtract-paste)
-(global-set-key (kbd "C-c C-v *") 'multiply-paste)
-(global-set-key (kbd "C-c C-v /") 'divide-paste)
+;;---- MINOR MODE -----------------------------------------------------------------
 
-(global-set-key (kbd "C-M-z m") 'do-math-on-region)
+(define-minor-mode lvznumbers-mode "Minor mode for working with numbers and math."
+  :lighter " LVz0-9"
+  :keymap (let ((lvznumbersmap (make-sparse-keymap)))
 
-(global-set-key (kbd "C-x +") 'increment-number-at-point)
-(global-set-key (kbd "C-x -") 'decrement-number-at-point)
-(global-set-key (kbd "C-c <up>") 'increment-number-at-point)
-(global-set-key (kbd "C-c <down>") 'decrement-number-at-point)
+			;;---- SHORTCUTS ------------------------------------------------------------------
 
-(global-set-key (kbd "C-x <up>") 'increment-digit-at-point)
-(global-set-key (kbd "C-x <down>") 'decrement-digit-at-point)
+			(define-key-after		 ; Menu for LVzNumbers mode
+			  lvznumbersmap
+			  [menu-bar lvznumbersmenu]
+			  (cons "LVzNumbers" (make-sparse-keymap "lvznumbers mode"))
+			  'kill-buffer
+			  )
 
-(global-set-key (kbd "C-c H") 'increment-hex-at-point)
-(global-set-key (kbd "C-x H") 'decrement-hex-at-point)
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenugnn] ; goto next number
+			  '("Goto next number" . goto-next-number))
 
-;; (message "%d" (string-to-number "10" 8)) = 8
-;; (message "%d" (string-to-number "101" 2)) = 5
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenugpn] ; goto previous number
+			  '("Goto previous number" . goto-previous-number))
 
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu separator0] '("--"))
 
-(provide 'lvznumbers)
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste] ; Submenu for paste operations.
+			  (cons "Math operations" (make-sparse-keymap "math operations")))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr] ; Submenu for increments/decrements.
+			  (cons "Increments/Decrements" (make-sparse-keymap "increments decrements")))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu separator1] '("--"))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenudomath] ; Menu item for executing function "do-math-on-region" for replacing the selected area with the math results in it.
+			  '("Do math on selection" . do-math-on-region))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenucopydivision] ; Menu item for executing function "divide-copy" for replacing the number under cursor with the result of division that number with the number in kill-ring.
+			  '("Copy with division" . divide-copy))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenucopymultiplication] ; Menu item for executing function "divide-copy" for replacing the number under cursor with the result of division that number with the number in kill-ring.
+			  '("Copy with multiplication" . multiply-copy))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenucopysubtraction] ; Menu item for executing function "divide-copy" for replacing the number under cursor with the result of division that number with the number in kill-ring.
+			  '("Copy with subtraction" . subtract-copy))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenucopyaddition] ; Menu item for executing function "divide-copy" for replacing the number under cursor with the result of division that number with the number in kill-ring.
+			  '("Copy with addition" . addition-and-copy))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste separator1] '("--"))
+			
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenupastedivision] ; Menu item for executing function "divide-paste" for replacing the number under cursor with the result of division that number with the number in kill-ring.
+			  '("Paste with division" . divide-paste))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenupastemultiplication] ; Menu item for executing function "multiply-paste" for replacing the number under cursor with the result of multiplicating that number with the number in kill-ring.
+			  '("Paste with multiplication" . multiply-paste))
+			
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenupastesubstraction] ; Menu item for executing function "subtract-paste" for replacing the number under cursor with the result of subtracting the number in kill-ring of that number.
+			  '("Paste with subtraction" . subtract-paste))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenupaste lvznumbersmenupasteaddition] ; Menu item for executing function "addition-with-paste" for replacing the number under cursor with the result of adding that number to the number in kill-ring.
+			  '("Paste with addition" . addition-with-paste))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenudecrementhex] ; Menu item for executing function "decrement-hex-at-point" for decrement by one the hexadecimal number under the cursor.
+			  '("Decrement hexadecimal number" . decrement-hex-at-point))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenuincrementhex] ; Menu item for executing function "increment-hex-at-point" for increment by one the hexadecimal number under the cursor.
+			  '("Increment hexadecimal number" . increment-hex-at-point))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr separator2] '("--"))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenudecrementdigit] ; Menu item for executing function "decrement-digit-at-point" for decrement by one the digit right after the cursor.
+			  '("Decrement digit" . decrement-digit-at-point))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenuincrementdigit] ; Menu item for executing function "increment-digit-at-point" for increment by one the digit right after the cursor.
+			  '("Increment digit" . increment-digit-at-point))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr separator1] '("--"))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenudecrementdecn] ; Menu item for executing function "decrement-number-at-point" for decrement by one the decimal number under the cursor.
+			  '("Decrement decimal number" . decrement-number-at-point))
+
+			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenuincrementdecn] ; Menu item for executing function "increment-number-at-point" for increment by one the decimal number under the cursor.
+			  '("Increment decimal number" . increment-number-at-point))
+
+			(define-key lvznumbersmap (kbd "C-c C-v +") 'addition-with-paste)
+			(define-key lvznumbersmap (kbd "C-c C-v -") 'subtract-paste)
+			(define-key lvznumbersmap (kbd "C-c C-v *") 'multiply-paste)
+			(define-key lvznumbersmap (kbd "C-c C-v /") 'divide-paste)
+
+			(define-key lvznumbersmap (kbd "C-c C-v C-c +") 'addition-and-copy)
+			(define-key lvznumbersmap (kbd "C-c C-v C-c -") 'subtract-copy)
+			(define-key lvznumbersmap (kbd "C-c C-v C-c *") 'multiply-copy)
+			(define-key lvznumbersmap (kbd "C-c C-v C-c /") 'divide-copy)
+
+			(define-key lvznumbersmap (kbd "C-x <up>") 'increment-digit-at-point)
+			(define-key lvznumbersmap (kbd "C-x <down>") 'decrement-digit-at-point)
+
+			(define-key lvznumbersmap (kbd "C-x +") 'increment-number-at-point)
+			(define-key lvznumbersmap (kbd "C-x -") 'decrement-number-at-point)
+			(define-key lvznumbersmap (kbd "C-c <up>") 'increment-number-at-point)
+			(define-key lvznumbersmap (kbd "C-c <down>") 'decrement-number-at-point)
+
+			(define-key lvznumbersmap (kbd "C-c H") 'increment-hex-at-point)
+			(define-key lvznumbersmap (kbd "C-x H") 'decrement-hex-at-point)
+
+			(define-key lvznumbersmap (kbd "C-M-z m") 'do-math-on-region)
+
+			(define-key lvznumbersmap (kbd "C-c C-n C-n") 'goto-next-number)
+			(define-key lvznumbersmap (kbd "C-c C-n C-p") 'goto-previous-number)
+
+			lvznumbersmap)
+  :global 1
+
+  (make-local-variable 'lvznumbers-keymap)
+  )
+
+(lvznumbers-mode 1)
+
+(provide 'lvznumbers-mode)
