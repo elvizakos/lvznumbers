@@ -27,3 +27,9 @@ cd ..
 tar -xvf "./<TAR_FILE_PACKAGE>"  -C "~/.emacs.d/elpa/"
 
 ```
+
+## Usage
+
+### Increments, Decrements
+
+With cursor right before, in, or after a number pressing the combination `C-c <UP>` will increace it by one decimal unit.
