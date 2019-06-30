@@ -3,7 +3,7 @@
 
 ;; Copyright © 2018, Nikos Skarmoutsos
 
-;; Version: 1.2.0
+;; Version: VERSION
 ;; Author: Nikos Skarmoutsos <elvizakos AT yahoo DOT gr>
 ;; Maintainer: Nikos Skarmoutsos
 ;; Created: May 2018
@@ -17,25 +17,128 @@
 
 ;;---- CONSTANTS ------------------------------------------------------------------
 
-(defconst lvznumbers-version "1.2.0" "LVzNumbers version.")
+(defconst lvznumbers-version "VERSION" "LVzNumbers version.")
 
 ;;---- VARIABLES ------------------------------------------------------------------
 
 (defvar lvznumbers-keymap (make-sparse-keymap) "Keymap for lvznumbers.")
 
-(defvar lvznumbers-increment-decrement 1 "Increment/Decrement value.")
+;; (defvar lvznumbers-increment-decrement nil "Increment/Decrement value.")
+
+;;---- OPTIONS --------------------------------------------------------------------
+
+(defgroup lvznumbers nil "LVzNumbers minor mode settings."
+  :group 'tools)
+
+(defcustom lvznumbers-increment-decrement
+  1										; Default value "1"
+  "Increment/Decrement default value."
+  :type 'number
+  :group 'lvznumbers)
+
+(defgroup lvznumbers-keys nil "LVzNumbers minor mode settings."
+  :group 'tools)
+(defcustom lvznumbers-increment-keycomb
+  "C-c <up>"
+  "Default key combination for increment decimal number under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-decrement-keycomb
+  "C-c <down>"
+  "Default key combination for decrement decimal number under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-increment-digit-keycomb
+  "C-x <up>"
+  "Default key combination for increment decimal digit under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-decrement-digit-keycomb
+  "C-x <down>"
+  "Default key combination for decrement decimal number under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-increment-hex-keycomb
+  "C-c H"
+  "Default key combination for increment hexadecimal digit under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-decrement-hex-keycomb
+  "C-x H"
+  "Default key combination for decrement hexadecimal digit under cursor."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-goto-next-dec-number-keycomb
+  "C-c C-n C-n"
+  "Default key combination moving the cursor to over next decimal number in buffer."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-goto-previous-dec-number-keycomb
+  "C-c C-n C-p"
+  "Default key combination moving the cursor to over previous decimal number in buffer."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-addition-with-paste-keycomb
+  "C-c C-v +"
+  "Default key combination for running addition-with-paste command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-subtract-paste-keycomb
+  "C-c C-v -"
+  "Default key combination for running subtract-paste command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-multiplay-paste-keycomb
+  "C-c C-v *"
+  "Default key combination for running multiply-paste command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-divide-paste-keycomb
+  "C-c C-v /"
+  "Default key combination for running multiply-paste command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-addition-and-copy-keycomb
+  "C-c C-v C-c +"
+  "Default key combination for running addition-and-copy command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-subtract-copy-keycomb
+  "C-c C-v C-c -"
+  "Default key combination for running subtract-copy command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-multiply-copy-keycomb
+  "C-c C-v C-c *"
+  "Default key combination for running multiply-copy command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-divide-copy-keycomb
+  "C-c C-v C-c /"
+  "Default key combination for running divide-copy command."
+  :type 'string
+  :group 'lvznumbers-keys)
+(defcustom lvznumbers-do-math-on-region-keycomb
+  "C-M-z m"
+  "Default key combination for running do-math-on-region command."
+  :type 'string
+  :group 'lvznumbers-keys)
 
 ;;---- FUNCTIONS ------------------------------------------------------------------
 
-(defun increment-number-at-point () "Function for increment by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
-  (interactive)
-  (let ((cpoint (point)))
+(defun increment-number-at-point ( x ) "Function for increment by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
+  (interactive "p")
+  (let (
+		(cpoint (point))
+		(incn lvznumbers-increment-decrement)
+		)
+	(if x (setq incn (* x incn)))
 	(skip-chars-backward "0-9")
-	(skip-chars-backward "-")
+	(if (char-equal (char-before) ?-) (backward-char 1))
 	(or
-	 (looking-at "[\-]?[0-9]+")
+	 (looking-at "[\\-]?[0-9]+")
 	 (error "Not a decimal number at point"))
-	(replace-match (number-to-string (+ lvznumbers-increment-decrement (string-to-number (match-string 0)))))
+	(replace-match (number-to-string (+ incn (string-to-number (match-string 0)))))
 	(goto-char cpoint)))
 
 (defun increment-digit-at-point () "Function for increment by one the decimal digit after cursor."
@@ -46,15 +149,19 @@
   (replace-match (number-to-string (1+ (string-to-number (match-string 0)))))
   (backward-char 1))
 
-(defun decrement-number-at-point ()	"Function for decrement by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
-  (interactive)
-  (let ((cpoint (point)))
+(defun decrement-number-at-point ( x )	"Function for decrement by the value of \"lvznumbers-increment-decrement\" the decimal number under cursor."
+  (interactive "p")
+  (let (
+		(cpoint (point))
+		(incn lvznumbers-increment-decrement)
+		)
+	(if x (setq incn (* x incn)))
 	(skip-chars-backward "0-9")
-	(skip-chars-backward "-")
+	(if (char-equal (char-before) ?-) (backward-char 1))
 	(or
-	 (looking-at "[\-]?[0-9]+")
+	 (looking-at "[\\-]?[0-9]+")
 	 (error "Not a decimal number at point"))
-	(replace-match (number-to-string (- (string-to-number (match-string 0)) lvznumbers-increment-decrement)))
+	(replace-match (number-to-string (- (string-to-number (match-string 0)) incn)))
 	(goto-char cpoint)))
 
 (defun decrement-digit-at-point () "Function for decrement by one the decimal digit under cursor."
@@ -65,24 +172,32 @@
   (replace-match (number-to-string (1- (string-to-number (match-string 0)))))
   (backward-char 1))
 
-(defun increment-hex-at-point () "Function for increment by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
-  (interactive)
-  (let ((cpoint (point)))
+(defun increment-hex-at-point ( x ) "Function for increment by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
+  (interactive "p")
+  (let (
+		(cpoint (point))
+		(incn lvznumbers-increment-decrement)
+		)
+	(if x (setq incn (* x incn)))
 	(skip-chars-backward "0-9A-Fa-f")
 	(or
 	 (looking-at "[0-9A-Fa-f]+")
 	 (error "Not a hexadecimal number at point"))
-	(replace-match (format "%x" (+ lvznumbers-increment-decrement (string-to-number (match-string 0) 16))))
+	(replace-match (format "%x" (+ incn (string-to-number (match-string 0) 16))))
   (goto-char cpoint)))
 
-(defun decrement-hex-at-point () "Function for decrement by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
-  (interactive)
-  (let ((cpoint (point)))
+(defun decrement-hex-at-point ( x ) "Function for decrement by the value of \"lvznumbers-increment-decrement\" the hexadecimal number under cursor."
+  (interactive "p")
+  (let (
+		(cpoint (point))
+		(incn lvznumbers-increment-decrement)
+		)
+	(if x (setq incn (* x incn)))
 	(skip-chars-backward "0-9A-Fa-f")
 	(or
 	 (looking-at "[0-9A-Fa-f]+")
 	 (error "Not a hexadecimal number at point"))
-	(replace-match (format "%x" (- (string-to-number (match-string 0) 16) lvznumbers-increment-decrement)))
+	(replace-match (format "%x" (- (string-to-number (match-string 0) 16) incn)))
   (goto-char cpoint)))
 
 (defun addition-with-paste () "Function for adding the number in kill-ring to the number at cursor and replace the latter."
@@ -389,6 +504,22 @@
 		 (if (not (looking-at "[0-9]+"))
 			 (goto-char cpoint))))
 
+(defun region-increase-numbers () "Increase all numbers in selected area."
+	   (interactive)
+	   (if (use-region-p)
+		   (let (
+				 (cpoint (region-beginning))
+				 (str (buffer-substring-no-properties (region-beginning) (region-end)))
+				 )
+			 (save-match-data
+			   (let ((pos 0)
+					 matches)
+				 (while (string-match "\\([\\-]?[0-9]+\\)\\([.][0-9]+\\)?" str pos)
+				   (setq pos (match-end 0)))
+				 matches))
+			 )
+		 (error "There is no selection.")))
+
 ;;---- MINOR MODE -----------------------------------------------------------------
 
 (define-minor-mode lvznumbers-mode "Minor mode for working with numbers and math."
@@ -471,31 +602,31 @@
 			(define-key lvznumbersmap [menu-bar lvznumbersmenu lvznumbersmenuincr lvznumbersmenuincrementdecn] ; Menu item for executing function "increment-number-at-point" for increment by one the decimal number under the cursor.
 			  '("Increment decimal number" . increment-number-at-point))
 
-			(define-key lvznumbersmap (kbd "C-c C-v +") 'addition-with-paste)
-			(define-key lvznumbersmap (kbd "C-c C-v -") 'subtract-paste)
-			(define-key lvznumbersmap (kbd "C-c C-v *") 'multiply-paste)
-			(define-key lvznumbersmap (kbd "C-c C-v /") 'divide-paste)
+			(define-key lvznumbersmap (kbd lvznumbers-addition-with-paste-keycomb) 'addition-with-paste)
+			(define-key lvznumbersmap (kbd lvznumbers-subtract-paste-keycomb) 'subtract-paste)
+			(define-key lvznumbersmap (kbd lvznumbers-multiplay-paste-keycomb) 'multiply-paste)
+			(define-key lvznumbersmap (kbd lvznumbers-divide-paste-keycomb) 'divide-paste)
 
-			(define-key lvznumbersmap (kbd "C-c C-v C-c +") 'addition-and-copy)
-			(define-key lvznumbersmap (kbd "C-c C-v C-c -") 'subtract-copy)
-			(define-key lvznumbersmap (kbd "C-c C-v C-c *") 'multiply-copy)
-			(define-key lvznumbersmap (kbd "C-c C-v C-c /") 'divide-copy)
+			(define-key lvznumbersmap (kbd lvznumbers-addition-and-copy-keycomb) 'addition-and-copy)
+			(define-key lvznumbersmap (kbd lvznumbers-subtract-copy-keycomb) 'subtract-copy)
+			(define-key lvznumbersmap (kbd lvznumbers-multiply-copy-keycomb) 'multiply-copy)
+			(define-key lvznumbersmap (kbd lvznumbers-divide-copy-keycomb) 'divide-copy)
 
-			(define-key lvznumbersmap (kbd "C-x <up>") 'increment-digit-at-point)
-			(define-key lvznumbersmap (kbd "C-x <down>") 'decrement-digit-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-increment-digit-keycomb) 'increment-digit-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-decrement-digit-keycomb) 'decrement-digit-at-point)
 
 			(define-key lvznumbersmap (kbd "C-x +") 'increment-number-at-point)
 			(define-key lvznumbersmap (kbd "C-x -") 'decrement-number-at-point)
-			(define-key lvznumbersmap (kbd "C-c <up>") 'increment-number-at-point)
-			(define-key lvznumbersmap (kbd "C-c <down>") 'decrement-number-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-increment-keycomb) 'increment-number-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-decrement-keycomb) 'decrement-number-at-point)
 
-			(define-key lvznumbersmap (kbd "C-c H") 'increment-hex-at-point)
-			(define-key lvznumbersmap (kbd "C-x H") 'decrement-hex-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-increment-hex-keycomb) 'increment-hex-at-point)
+			(define-key lvznumbersmap (kbd lvznumbers-decrement-hex-keycomb) 'decrement-hex-at-point)
 
-			(define-key lvznumbersmap (kbd "C-M-z m") 'do-math-on-region)
+			(define-key lvznumbersmap (kbd lvznumbers-do-math-on-region-keycomb) 'do-math-on-region)
 
-			(define-key lvznumbersmap (kbd "C-c C-n C-n") 'goto-next-number)
-			(define-key lvznumbersmap (kbd "C-c C-n C-p") 'goto-previous-number)
+			(define-key lvznumbersmap (kbd lvznumbers-goto-next-dec-number-keycomb) 'goto-next-number)
+			(define-key lvznumbersmap (kbd lvznumbers-goto-previous-dec-number-keycomb) 'goto-previous-number)
 
 			lvznumbersmap)
   :global 1
@@ -506,3 +637,9 @@
 (lvznumbers-mode 1)
 
 (provide 'lvznumbers-mode)
+
+;;; lvznumbers-mode.el ends here
+
+;;(use-package lvznumbers-mode
+;;			 :ensure t
+;;			 :config (global-lvznumbers-mode))
