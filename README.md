@@ -50,3 +50,12 @@ Key | Description
 `C-x H` |  Decrease the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-decrement-hex-keycomb`.
 `C-c C-n C-n` | Send cursor at the begining of the next decimal number. This shortcut is defined by the `lvznumbers-goto-next-dec-number-keycomb`.
 `C-c C-n C-p` | Send cursor at the begining of the previous decimal number. This shortcut is defined by the `lvznumbers-goto-previous-dec-number-keycomb`.
+`C-c C-v +` | Add the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-addition-with-paste-keycomb`.
+`C-c C-v -` | Subtract the number in the kill-ring from the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-subtract-paste-keycomb`.
+`C-c C-v *` | Multiply the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-multiply-paste-keycomb`.
+`C-c C-v /` | Divide the number under cursor with  the number in the kill-ring and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-paste-keycomb`.
+`C-c C-v C-c +` | Add the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-addition-and-copy-keycomb`.
+`C-c C-v C-c -` | Subtract the number in the kill-ring from the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-subtract-copy-keycomb`.
+`C-c C-v C-c *` | Multiply the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-multiply-copy-keycomb`.
+`C-c C-v C-c /` | Divide the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-copy-keycomb`.
+`C-M-z m` | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb`.
