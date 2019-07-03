@@ -33,4 +33,5 @@ tar -xvf "./<TAR_FILE_PACKAGE>"  -C "~/.emacs.d/elpa/"
 ### Increments, Decrements
 
 With cursor right before, in, or after a number pressing the combination `C-c <UP>` will increace it by one decimal unit.
-Using the universal argument `C-u C-c <UP>` the number will be increased by 4and with double universal argument `C-u C-u C-c <UP>` the number will be increased by 16.
+Using the universal argument without adding a number `C-u C-c <UP>` the number will be increased by 4 and with double universal argument `C-u C-u C-c <UP>` the number will be increased by 16.
+Using the universal argument by adding a number `C-u 30 C-c <UP>` the number will be increased by that number.
