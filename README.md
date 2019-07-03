@@ -38,8 +38,8 @@ Using the universal argument by adding a number `C-u 30 C-c <UP>` the number wil
 
 ### Shortcuts
 
- Key | Description 
---- | --- | ---
+Key | Description
+--- | ---
 `C-c <up>` | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers-increment-keycomb` variable.
 `C-x +` | Increase the decimal number under cursor.
 `C-c <down>` | Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers-decrement-keycomb`.
