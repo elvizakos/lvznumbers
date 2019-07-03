@@ -3,6 +3,22 @@
 
 lvznumbers-mode is a minor mode for working with numbers and math on emacs.
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+**Table of Contents**
+
+- [lvznumbers-mode](#lvznumbers-mode)
+    - [Installation](#installation)
+        - [Build package](#build-package)
+        - [Installing package](#installing-package)
+    - [Usage](#usage)
+        - [Increments, Decrements](#increments-decrements)
+        - [Math](#math)
+            - [Examples](#examples)
+        - [Shortcuts](#shortcuts)
+
+<!-- markdown-toc end -->
+
+
 ## Installation
 
 ### Build package
@@ -46,6 +62,8 @@ By selecting an area and pressing `C-M-z m` all math in selection will be replac
 By selecting the string `2 + 2 * 2 + a` and pressing `C-M-z m`, the result will be `6.0 + a`.
 
 By selecting the string `(2 + 2) * 2 + a` and pressing `C-M-z m`, the result will be `8.0 + a`.
+
+By selecting the string `2 + 2 * 2 * a` and pressing `C-M_z m`, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
 
 ### Shortcuts ###
 
