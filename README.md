@@ -1,4 +1,5 @@
 # lvznumbers-mode
+[![License](https://img.shields.io/:license-gpl3-blue.svg)](./COPYING)
 
 lvznumbers-mode is a minor mode for working with numbers and math on emacs.
 
@@ -36,7 +37,17 @@ With cursor right before, in, or after a number pressing the combination `C-c <U
 Using the universal argument without adding a number `C-u C-c <UP>` the number will be increased by 4 and with double universal argument `C-u C-u C-c <UP>` the number will be increased by 16.
 Using the universal argument by adding a number `C-u 30 C-c <UP>` the number will be increased by that number.
 
-### Shortcuts
+### Math ###
+
+By selecting an area and pressing `C-M-z m` all math in selection will be replaced by their result.
+
+#### Examples ####
+
+By selecting the string `2 + 2 * 2 + a` and pressing `C-M-z m`, the result will be `6.0 + a`.
+
+By selecting the string `(2 + 2) * 2 + a` and pressing `C-M-z m`, the result will be `8.0 + a`.
+
+### Shortcuts ###
 
 Key | Function | Description
 --- | --- | ---
