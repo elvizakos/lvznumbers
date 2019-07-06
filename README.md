@@ -1,3 +1,9 @@
+# lvznumbers-mode #
+
+[![License](https://img.shields.io/:license-gpl3-blue.svg)](./COPYING)
+
+lvznumbers-mode is a minor mode for working with numbers and math on emacs.
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 **Table of Contents**
 
@@ -12,13 +18,6 @@
         - [Shortcuts](#shortcuts)
 
 <!-- markdown-toc end -->
-# lvznumbers-mode #
-
-[![License](https://img.shields.io/:license-gpl3-blue.svg)](./COPYING)
-
-lvznumbers-mode is a minor mode for working with numbers and math on emacs.
-
-
 
 ## Installation ##
 
