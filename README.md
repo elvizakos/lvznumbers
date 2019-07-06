@@ -1,8 +1,3 @@
-# lvznumbers-mode
-[![License](https://img.shields.io/:license-gpl3-blue.svg)](./COPYING)
-
-lvznumbers-mode is a minor mode for working with numbers and math on emacs.
-
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 **Table of Contents**
 
@@ -17,11 +12,17 @@ lvznumbers-mode is a minor mode for working with numbers and math on emacs.
         - [Shortcuts](#shortcuts)
 
 <!-- markdown-toc end -->
+# lvznumbers-mode #
+
+[![License](https://img.shields.io/:license-gpl3-blue.svg)](./COPYING)
+
+lvznumbers-mode is a minor mode for working with numbers and math on emacs.
 
 
-## Installation
 
-### Build package
+## Installation ##
+
+### Build package ###
 
 ```bash
 ## Create empty file "lvznumbers-mode-autoloads"
@@ -34,7 +35,7 @@ make clean
 make
 ```
 
-### Installing package
+### Installing package ###
 
 ```bash
 
@@ -45,9 +46,9 @@ tar -xvf "./<TAR_FILE_PACKAGE>"  -C "~/.emacs.d/elpa/"
 
 ```
 
-## Usage
+## Usage ##
 
-### Increments, Decrements
+### Increments, Decrements ###
 
 With cursor right before, in, or after a number pressing the combination `C-c <UP>` will increace it by one decimal unit.
 Using the universal argument without adding a number `C-u C-c <UP>` the number will be increased by 4 and with double universal argument `C-u C-u C-c <UP>` the number will be increased by 16.
@@ -63,7 +64,9 @@ By selecting the string `2 + 2 * 2 + a` and pressing `C-M-z m`, the result will 
 
 By selecting the string `(2 + 2) * 2 + a` and pressing `C-M-z m`, the result will be `8.0 + a`.
 
-By selecting the string `2 + 2 * 2 * a` and pressing `C-M_z m`, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
+By selecting the string `2 + 2 * 2 * a` and pressing `C-M-z m`, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
+
+Pressing `C-M-z m` on no selection the error message `There is no selection` will appear.
 
 ### Shortcuts ###
 
