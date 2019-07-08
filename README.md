@@ -49,44 +49,45 @@ tar -xvf "./<TAR_FILE_PACKAGE>"  -C "~/.emacs.d/elpa/"
 
 ### Increments, Decrements ###
 
-With cursor right before, in, or after a number pressing the combination `C-c <UP>` will increace it by one decimal unit.
-Using the universal argument without adding a number `C-u C-c <UP>` the number will be increased by 4 and with double universal argument `C-u C-u C-c <UP>` the number will be increased by 16.
-Using the universal argument by adding a number `C-u 30 C-c <UP>` the number will be increased by that number.
+With cursor right before, in, or after a number pressing the combination <kbd>C-c &lt;UP&gt;</kbd> will increace it by one decimal unit.
+Using the universal argument without adding a number <kbd>C-u C-c &lt;UP&gt;</kbd> the number will be increased by 4 and with double universal argument <kbd>C-u C-u C-c &lt;UP&gt;</kbd> the number will be increased by 16.
+Using the universal argument by adding a number <kbd>C-u 30 C-c &lt;UP&gt;</kbd> the number will be increased by the given number.
+
 
 ### Math ###
 
-By selecting an area and pressing `C-M-z m` all math in selection will be replaced by their result.
+By selecting an area and pressing <kbd>C-M-z m</kbd> all math in selection will be replaced by their result.
 
 #### Examples ####
 
-By selecting the string `2 + 2 * 2 + a` and pressing `C-M-z m`, the result will be `6.0 + a`.
+By selecting the string `2 + 2 * 2 + a` and pressing <kbd>C-M-z m</kbd>, the result will be `6.0 + a`.
 
-By selecting the string `(2 + 2) * 2 + a` and pressing `C-M-z m`, the result will be `8.0 + a`.
+By selecting the string `(2 + 2) * 2 + a` and pressing <kbd>C-M-z m</kbd>, the result will be `8.0 + a`.
 
-By selecting the string `2 + 2 * 2 * a` and pressing `C-M-z m`, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
+By selecting the string `2 + 2 * 2 * a` and pressing <kbd>C-M-z m</kbd>, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
 
-Pressing `C-M-z m` on no selection the error message `There is no selection` will appear.
+Pressing <kbd>C-M-z m</kbd> when there is no selection, the error message `There is no selection` will appear in minibuffer.
 
 ### Shortcuts ###
 
 Key | Function | Universal argument | Description
 --- | --- | --- | ---
-`C-c <up>` | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers-increment-keycomb` variable.
-`C-x +` | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor.
-`C-c <down>` | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers-decrement-keycomb`.
-`C-x -` | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal number under cursor.
-`C-x <up>` | `increment-digit-at-point` | Universal arguments can't be used here. | Increase the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-increment-digit-keycomb`.
-`C-x <down>` | `decrement-digit-at-point` | Universal arguments can't be used here. | Decrease the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-decrement-digit-keycomb`.
-`C-c H` | `increment-hex-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-increment-hex-keycomb`.
-`C-x H` | `decrement-hex-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-decrement-hex-keycomb`.
-`C-c C-n C-n` | `goto-next-number` | If universal argument used, it will jump to the Nth number. | Send cursor at the begining of the next decimal number. This shortcut is defined by the `lvznumbers-goto-next-dec-number-keycomb`.
-`C-c C-n C-p` | `goto-previous-number` | If universal argument used, it will jump to the Nth number. | Send cursor at the begining of the previous decimal number. This shortcut is defined by the `lvznumbers-goto-previous-dec-number-keycomb`.
-`C-c C-v +` | `addition-with-paste` | Universal arguments can't be used here. | Add the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-addition-with-paste-keycomb`.
-`C-c C-v -` | `subtract-paste` | Universal arguments can't be used here. | Subtract the number in the kill-ring from the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-subtract-paste-keycomb`.
-`C-c C-v *` | `multiply-paste` | Universal arguments can't be used here. | Multiply the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-multiply-paste-keycomb`.
-`C-c C-v /` | `divide-paste` | Universal arguments can't be used here. | Divide the number under cursor with  the number in the kill-ring and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-paste-keycomb`.
-`C-c C-v C-c +` | `addition-and-copy` | Universal arguments can't be used here. | Add the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-addition-and-copy-keycomb`.
-`C-c C-v C-c -` | `subtract-copy` | Universal arguments can't be used here. | Subtract the number in the kill-ring from the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-subtract-copy-keycomb`.
-`C-c C-v C-c *` | `multiply-copy` | Universal arguments can't be used here. | Multiply the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-multiply-copy-keycomb`.
-`C-c C-v C-c /` | `divide-copy` | Universal arguments can't be used here. | Divide the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-copy-keycomb`.
-`C-M-z m` | `do-math-on-region` | Universal arguments can't be used here. | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb`.
+<kbd>C-c <up></kbd> | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers-increment-keycomb` variable.
+<kbd>C-x +</kbd> | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor.
+<kbd>C-c <down></kbd> | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers-decrement-keycomb`.
+<kbd>C-x -</kbd> | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal number under cursor.
+<kbd>C-x <up></kbd> | `increment-digit-at-point` | Universal arguments can't be used here. | Increase the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-increment-digit-keycomb`.
+<kbd>C-x <down></kbd> | `decrement-digit-at-point` | Universal arguments can't be used here. | Decrease the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-decrement-digit-keycomb`.
+<kbd>C-c H</kbd> | `increment-hex-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-increment-hex-keycomb`.
+<kbd>C-x H</kbd> | `decrement-hex-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-decrement-hex-keycomb`.
+<kbd>C-c C-n C-n</kbd> | `goto-next-number` | If universal argument used, it will jump to the Nth number. | Send cursor at the begining of the next decimal number. This shortcut is defined by the `lvznumbers-goto-next-dec-number-keycomb`.
+<kbd>C-c C-n C-p</kbd> | `goto-previous-number` | If universal argument used, it will jump to the Nth number. | Send cursor at the begining of the previous decimal number. This shortcut is defined by the `lvznumbers-goto-previous-dec-number-keycomb`.
+<kbd>C-c C-v +</kbd> | `addition-with-paste` | Universal arguments can't be used here. | Add the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-addition-with-paste-keycomb`.
+<kbd>C-c C-v -</kbd> | `subtract-paste` | Universal arguments can't be used here. | Subtract the number in the kill-ring from the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-subtract-paste-keycomb`.
+<kbd>C-c C-v *</kbd> | `multiply-paste` | Universal arguments can't be used here. | Multiply the number in the kill-ring with the number under cursor and replace the second with the result. This shortcut is defined by the `lvznumbers-multiply-paste-keycomb`.
+<kbd>C-c C-v /</kbd> | `divide-paste` | Universal arguments can't be used here. | Divide the number under cursor with  the number in the kill-ring and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-paste-keycomb`.
+<kbd>C-c C-v C-c +</kbd> | `addition-and-copy` | Universal arguments can't be used here. | Add the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-addition-and-copy-keycomb`.
+<kbd>C-c C-v C-c -</kbd> | `subtract-copy` | Universal arguments can't be used here. | Subtract the number in the kill-ring from the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-subtract-copy-keycomb`.
+<kbd>C-c C-v C-c *</kbd> | `multiply-copy` | Universal arguments can't be used here. | Multiply the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-multiply-copy-keycomb`.
+<kbd>C-c C-v C-c /</kbd> | `divide-copy` | Universal arguments can't be used here. | Divide the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-copy-keycomb`.
+<kbd>C-M-z m</kbd> | `do-math-on-region` | Universal arguments can't be used here. | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb`.
