@@ -88,7 +88,7 @@
   "Default key combination for running subtract-paste command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-multiplay-paste-keycomb
+(defcustom lvznumbers-multiply-paste-keycomb
   "C-c C-v *"
   "Default key combination for running multiply-paste command."
   :type 'string
@@ -486,23 +486,38 @@
 		)
 	(error "There is no selection.")))
 
-(defun goto-next-number () "Function for moving the cursor to the next number."
-	   (interactive)
-	   (if (looking-at "[0-9]+") (skip-chars-forward "0-9"))
-	   (and
-		(looking-at "[^0-9]+[\-]?[0-9]+")
-		(skip-chars-forward "^0-9")))
+(defun goto-next-number ( x ) "Function for moving the cursor to the next number."
+	   (interactive "p")
+	   (let (
+			 (rpt 1)
+			 (i 0)
+			 )
 
-(defun goto-previous-number () "Function for moving the cursor to the previous number."
-	   (interactive)
+		 (if (> x 0) (setq rpt x))
+		 (while (< i rpt)
+		   (progn
+			 (if (looking-at "[0-9]+") (skip-chars-forward "0-9"))
+			 (and
+			  (looking-at "[^0-9]+[\-]?[0-9]+")
+			  (skip-chars-forward "^0-9"))
+			 (setq i (1+ i))))))
+
+(defun goto-previous-number ( x ) "Function for moving the cursor to the previous number."
+	   (interactive "p")
 	   (let (
 			 (cpoint (point))
+			 (rpt 1)
+			 (i 0)
 			 )
-		 (if (looking-back "[0-9]+") (skip-chars-backward "0-9"))
-		 (skip-chars-backward "^0-9")
-		 (skip-chars-backward "0-9")
-		 (if (not (looking-at "[0-9]+"))
-			 (goto-char cpoint))))
+		 (if (> x 0) (setq rpt x))
+		 (while (< i rpt)
+		   (progn
+			 (if (looking-back "[0-9]+") (skip-chars-backward "0-9"))
+			 (skip-chars-backward "^0-9")
+			 (skip-chars-backward "0-9")
+			 (if (not (looking-at "[0-9]+"))
+				 (goto-char cpoint))
+			 (setq i (1+ i))))))
 
 (defun region-increase-numbers () "Increase all numbers in selected area."
 	   (interactive)
@@ -604,7 +619,7 @@
 
 			(define-key lvznumbersmap (kbd lvznumbers-addition-with-paste-keycomb) 'addition-with-paste)
 			(define-key lvznumbersmap (kbd lvznumbers-subtract-paste-keycomb) 'subtract-paste)
-			(define-key lvznumbersmap (kbd lvznumbers-multiplay-paste-keycomb) 'multiply-paste)
+			(define-key lvznumbersmap (kbd lvznumbers-multiply-paste-keycomb) 'multiply-paste)
 			(define-key lvznumbersmap (kbd lvznumbers-divide-paste-keycomb) 'divide-paste)
 
 			(define-key lvznumbersmap (kbd lvznumbers-addition-and-copy-keycomb) 'addition-and-copy)
