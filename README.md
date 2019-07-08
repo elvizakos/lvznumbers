@@ -72,12 +72,12 @@ Pressing <kbd>C-M-z m</kbd> when there is no selection, the error message `There
 
 Key | Function | Universal argument | Description
 --- | --- | --- | ---
-<kbd>C-c <up></kbd> | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers-increment-keycomb` variable.
+<kbd>C-c &lt;up&gt;</kbd> | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers-increment-keycomb` variable.
 <kbd>C-x +</kbd> | `increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor.
-<kbd>C-c <down></kbd> | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers-decrement-keycomb`.
+<kbd>C-c &lt;down&gt;</kbd> | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers-decrement-keycomb`.
 <kbd>C-x -</kbd> | `decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal number under cursor.
-<kbd>C-x <up></kbd> | `increment-digit-at-point` | Universal arguments can't be used here. | Increase the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-increment-digit-keycomb`.
-<kbd>C-x <down></kbd> | `decrement-digit-at-point` | Universal arguments can't be used here. | Decrease the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-decrement-digit-keycomb`.
+<kbd>C-x &lt;up&gt;</kbd> | `increment-digit-at-point` | Universal arguments can't be used here. | Increase the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-increment-digit-keycomb`.
+<kbd>C-x &lt;down&gt;</kbd> | `decrement-digit-at-point` | Universal arguments can't be used here. | Decrease the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers-decrement-digit-keycomb`.
 <kbd>C-c H</kbd> | `increment-hex-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-increment-hex-keycomb`.
 <kbd>C-x H</kbd> | `decrement-hex-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers-decrement-hex-keycomb`.
 <kbd>C-c C-n C-n</kbd> | `goto-next-number` | If universal argument used, it will jump to the Nth number. | Send cursor at the begining of the next decimal number. This shortcut is defined by the `lvznumbers-goto-next-dec-number-keycomb`.
