@@ -11,6 +11,7 @@ lvznumbers-mode is a minor mode for working with numbers and math on emacs.
     - [Installation](#installation)
         - [Build package](#build-package)
         - [Installing package](#installing-package)
+        - [Simple Installation](#simple-installation)
     - [Usage](#usage)
         - [Increments, Decrements](#increments-decrements)
         - [Math](#math)
@@ -45,6 +46,12 @@ tar -xvf "./<TAR_FILE_PACKAGE>"  -C "~/.emacs.d/elpa/"
 
 ```
 
+### Simple Installation ###
+This can also be installed by adding somewhere in emacs init file the following line:
+```lisp
+(load "/path/to/lvznumbers-mode.el")
+```
+
 ## Usage ##
 
 ### Increments, Decrements ###
@@ -67,6 +74,8 @@ By selecting the string `(2 + 2) * 2 + a` and pressing <kbd>C-M-z m</kbd>, the r
 By selecting the string `2 + 2 * 2 * a` and pressing <kbd>C-M-z m</kbd>, the error message `Args out of range: " a", 4, 8` will appear in minibuffer.
 
 Pressing <kbd>C-M-z m</kbd> when there is no selection, the error message `There is no selection` will appear in minibuffer.
+
+![math examples](./math-examples-1.gif)
 
 ### Shortcuts ###
 
