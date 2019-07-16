@@ -16,17 +16,17 @@ lvznumbers-mode is a minor mode for working with numbers and math on emacs.
         - [Increments, Decrements](#increments-decrements)
         - [Math](#math)
             - [Math format](#math-format)
-            - [Math Operations](#math-operations)
-                - [Powers](#powers)
-                - [Roots](#roots)
-                - [Divisions](#divisions)
+                - [Math Operations](#math-operations)
+                    - [Powers](#powers)
+                    - [Roots](#roots)
+                    - [Divisions](#divisions)
                     - [Float Divisions](#float-divisions)
                     - [Integer Divisions](#integer-divisions)
                     - [Division remander](#division-remander)
-                - [Multiplications](#multiplications)
-                - [Subtractions](#subtractions)
-                - [Additions](#additions)
-            - [Order of operations](#order-of-operations)
+                    - [Multiplications](#multiplications)
+                    - [Subtractions](#subtractions)
+                    - [Additions](#additions)
+                - [Order of operations](#order-of-operations)
             - [Examples](#examples)
         - [Shortcuts](#shortcuts)
 
@@ -77,23 +77,25 @@ By selecting an area and pressing <kbd>C-M-z m</kbd> all math in selection will 
 
 #### Math format ####
 
-#### Math Operations ####
+##### Math Operations #####
 
-##### Powers #####
+###### Powers ######
+
 Examples:
 `3 ** 2 = 9.0`
 `3 ^ 2 = 9.0`
 `3 ** 3 = 27.0`
 `3 ^ 3 = 27.0`
 
-##### Roots #####
+###### Roots ######
+
 Examples:
 `9 √ 2 = 3.0`
 `9 // 2 = 3.0`
 `9 ^ (1 / 2) =  3.0`
 `9 ** (1 / 2) =  3.0`
 
-##### Divisions #####
+###### Divisions ######
 
 ###### Float Divisions ######
 Examples:
@@ -109,23 +111,26 @@ Examples:
 Examples:
 `10 % 3 = 1.0`
 
-##### Multiplications #####
+###### Multiplications ######
+
 Examples:
 `3 * 3 = 9.0`
 `3 × 3 = 9.0`
 `3 · 3 = 9.0`
 
-##### Subtractions #####
+###### Subtractions ######
+
 Examples:
 `10 - 1 = 9.0`
 `10 — 1 = 9.0`
 
-##### Additions #####
+###### Additions ######
+
 Examples:
 `10 + 1 = 11.0`
 
 
-#### Order of operations ####
+##### Order of operations #####
 The order of operations following the same order as in mathematics and computer programming:
 
   1. parenthesis
@@ -134,7 +139,7 @@ The order of operations following the same order as in mathematics and computer 
   4. additions and subtractions
 
 
-#### Math Examples ####
+#### Examples ####
 
 By selecting the string `2 + 2 * 2 + a` and pressing <kbd>C-M-z m</kbd>, the result will be `6.0 + a`.
 
