@@ -134,7 +134,7 @@ The order of operations following the same order as in mathematics and computer 
   4. additions and subtractions
 
 
-#### Examples ####
+#### Math Examples ####
 
 By selecting the string `2 + 2 * 2 + a` and pressing <kbd>C-M-z m</kbd>, the result will be `6.0 + a`.
 
