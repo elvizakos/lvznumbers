@@ -15,6 +15,18 @@ lvznumbers-mode is a minor mode for working with numbers and math on emacs.
     - [Usage](#usage)
         - [Increments, Decrements](#increments-decrements)
         - [Math](#math)
+            - [Math format](#math-format)
+            - [Math Operations](#math-operations)
+                - [Powers](#powers)
+                - [Roots](#roots)
+                - [Divisions](#divisions)
+                    - [Float Divisions](#float-divisions)
+                    - [Integer Divisions](#integer-divisions)
+                    - [Division remander](#division-remander)
+                - [Multiplications](#multiplications)
+                - [Subtractions](#subtractions)
+                - [Additions](#additions)
+            - [Order of operations](#order-of-operations)
             - [Examples](#examples)
         - [Shortcuts](#shortcuts)
 
@@ -60,10 +72,67 @@ With cursor right before, in, or after a number pressing the combination <kbd>C-
 Using the universal argument without adding a number <kbd>C-u C-c &lt;UP&gt;</kbd> the number will be increased by 4 and with double universal argument <kbd>C-u C-u C-c &lt;UP&gt;</kbd> the number will be increased by 16.
 Using the universal argument by adding a number <kbd>C-u 30 C-c &lt;UP&gt;</kbd> the number will be increased by the given number.
 
-
 ### Math ###
-
 By selecting an area and pressing <kbd>C-M-z m</kbd> all math in selection will be replaced by their result.
+
+#### Math format ####
+
+#### Math Operations ####
+
+##### Powers #####
+Examples:
+`3 ** 2 = 9.0`
+`3 ^ 2 = 9.0`
+`3 ** 3 = 27.0`
+`3 ^ 3 = 27.0`
+
+##### Roots #####
+Examples:
+`9 √ 2 = 3.0`
+`9 // 2 = 3.0`
+`9 ^ (1 / 2) =  3.0`
+`9 ** (1 / 2) =  3.0`
+
+##### Divisions #####
+
+###### Float Divisions ######
+Examples:
+`10 / 3 = 3.3333333333333335`
+`10 ÷ 3 = 3.3333333333333335`
+`10 : 3 = 3.3333333333333335`
+
+###### Integer Divisions ######
+Examples:
+`10 \ 3 = 3`
+
+###### Division remander ######
+Examples:
+`10 % 3 = 1.0`
+
+##### Multiplications #####
+Examples:
+`3 * 3 = 9.0`
+`3 × 3 = 9.0`
+`3 · 3 = 9.0`
+
+##### Subtractions #####
+Examples:
+`10 - 1 = 9.0`
+`10 — 1 = 9.0`
+
+##### Additions #####
+Examples:
+`10 + 1 = 11.0`
+
+
+#### Order of operations ####
+The order of operations following the same order as in mathematics and computer programming:
+
+  1. parenthesis
+  2. powers and roots
+  3. divisions, integer divisions, division remanders and multiplications
+  4. additions and subtractions
+
 
 #### Examples ####
 
