@@ -72,6 +72,31 @@ With cursor right before, in, or after a number pressing the combination <kbd>C-
 Using the universal argument without adding a number <kbd>C-u C-c &lt;UP&gt;</kbd> the number will be increased by 4 and with double universal argument <kbd>C-u C-u C-c &lt;UP&gt;</kbd> the number will be increased by 16.
 Using the universal argument by adding a number <kbd>C-u 30 C-c &lt;UP&gt;</kbd> the number will be increased by the given number.
 
+#### Ideas ####
+
+For each line in the following list, found the second number and increase it by one:
+
+```
+1. list item 0
+2. list item 1
+3. list item 2
+4. list item 3
+```
+
+Solution:
+
+  1. <kbd>F3</kbd>
+  2. <kbd>C-a</kbd>
+  3. <kbd>SPC</kbd>
+  4. <kbd>C-a</kbd>
+  5. <kbd>C-u 2 C-c C-n C-n</kbd>
+  6. <kbd>C-c &lt;UP&gt;</kbd>
+  7. <kbd>C-a</kbd>
+  8. <kbd>C-d</kbd>
+  9. <kbd>C-n</kbd>
+  10. <kbd>F4</kbd>
+  11. <kbd>C-u 3 F4</kbd>
+
 ### Math ###
 By selecting an area and pressing <kbd>C-M-z m</kbd> all math in selection will be replaced by their result.
 
@@ -173,4 +198,9 @@ Key | Function | Universal argument | Description
 <kbd>C-c C-v C-c -</kbd> | `subtract-copy` | | Subtract the number in the kill-ring from the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-subtract-copy-keycomb`.
 <kbd>C-c C-v C-c *</kbd> | `multiply-copy` | | Multiply the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-multiply-copy-keycomb`.
 <kbd>C-c C-v C-c /</kbd> | `divide-copy` | | Divide the number in the kill-ring with the number under cursor and replace the first with the result. This shortcut is defined by the `lvznumbers-divide-copy-keycomb`.
-<kbd>C-M-z m</kbd> | `do-math-on-region` | | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb`.
+<kbd>C-c m m</kbd> | `do-math-on-region` | | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb`.
+<kbd>C-M-z m</kbd> | `do-math-on-region` | | Do all math in selected area.  This shortcut is defined by the `lvznumbers-do-math-on-region-keycomb-alt`.
+<kbd>C-c m C-y</kbd> | `do-math-on-kill-ring-and-paste` | | Do all math in kill-ring and paste the result. This shortcut is defined by the `lvznumbers-do-killring-and-paste-keycomb`.
+<kbd>C-c m C-v</kbd> | `do-math-on-kill-ring-and-paste`  | | Do all math in kill-ring and paste the result. This shortcut is defined by the `lvznumbers-do-killring-and-paste-keycomb-alt`.
+<kbd>C-c m M-w</kbd> | `do-math-on-region-and-copy` | | Do all math in selected area and replace kill-ring with the result. This shortcut is defined by the `lvznumbers-do-region-and-copy-keycomb`.
+<kbd>C-c m C-c</kbd> | `do-math-on-region-and-copy` | | Do all math in selected area and replace kill-ring with the result. This shortcut is defined by the `lvznumbers-do-region-and-copy-keycomb-alt`.
