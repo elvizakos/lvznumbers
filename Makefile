@@ -1,4 +1,4 @@
-VERSION:=1.2.3
+VERSION:=1.2.4
 PACKAGE_NAME:=lvznumbers-mode-$(VERSION)
 PACKAGE_DIR:=/tmp/$(PACKAGE_NAME)
 
@@ -16,7 +16,8 @@ $(PACKAGE_DIR):
 
 install:
 #emacs -e "(progn (package-initialize)(package-install \'lvznumbers-mode))"
-	emacs -e '(progn (package-initialize) (package-install-file "'$(PACKAGE_DIR)'/lvznumbers-mode.el"))'
+#emacs25 -e '(progn (package-initialize) (package-install-file "'$(PACKAGE_DIR)'/lvznumbers-mode.el"))'
+	tar -xvf ../$(PACKAGE_NAME).tar -C ~/.emacs.d/elpa/
 
 clean:
 	rm -f ../$(PACKAGE_NAME).tar
