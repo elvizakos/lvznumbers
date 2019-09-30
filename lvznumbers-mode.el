@@ -82,22 +82,22 @@
 (defcustom lvznumbers-divide-copy-keycomb "C-c C-v C-c /" "Default key combination for running divide-copy command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-do-math-on-region-keycomb  "C-c m m" "Default key combination for running do-math-on-region command."
+(defcustom lvznumbers-do-math-on-region-keycomb  "C-; m m" "Default key combination for running do-math-on-region command."
   :type 'string
   :group 'lvznumbers-keys)
 (defcustom lvznumbers-do-math-on-region-keycomb-alt  "C-M-z m" "Default alternative key combination for running do-math-on-region command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-do-killring-and-paste-keycomb  "C-c m C-y" "Default key combination for running do-math-on-killring-and-paste command."
+(defcustom lvznumbers-do-killring-and-paste-keycomb  "C-; m C-y" "Default key combination for running do-math-on-killring-and-paste command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-do-killring-and-paste-keycomb-alt  "C-c m C-v" "Default alternative key combination for running do-math-on-killring-and-paste command."
+(defcustom lvznumbers-do-killring-and-paste-keycomb-alt  "C-; m C-v" "Default alternative key combination for running do-math-on-killring-and-paste command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-do-region-and-copy-keycomb  "C-c m M-w" "Default key combination for running do-math-on-region-and-copy command."
+(defcustom lvznumbers-do-region-and-copy-keycomb  "C-; m M-w" "Default key combination for running do-math-on-region-and-copy command."
   :type 'string
   :group 'lvznumbers-keys)
-(defcustom lvznumbers-do-region-and-copy-keycomb-alt  "C-c m C-c" "Default alternative key combination for running do-math-on-region-and-copy command."
+(defcustom lvznumbers-do-region-and-copy-keycomb-alt  "C-; m C-c" "Default alternative key combination for running do-math-on-region-and-copy command."
   :type 'string
   :group 'lvznumbers-keys)
 ;;---- FUNCTIONS ------------------------------------------------------------------
