@@ -1,3 +1,7 @@
+2019-10-26  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
+
+	* README.md (Examples): Change key combnations for do-math-on-region, do-math-on-kill-ring-and-paste, do-math-on-kill-ring-and-paste alt, do-math-on-region-and-copy, and do-math-on-region-and-copy alt.
+
 2019-09-28  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
 
 	* lvznumbers-mode.el: add function do-math-on-kill-ring-and-paste.
