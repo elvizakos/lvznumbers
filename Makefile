@@ -1,9 +1,9 @@
-VERSION:=1.2.4
+VERSION:=1.2.5
 PACKAGE_NAME:=lvznumbers-mode-$(VERSION)
 PACKAGE_DIR:=/tmp/$(PACKAGE_NAME)
 
 package: $(PACKAGE_DIR)
-	tar cvf ../$(PACKAGE_NAME).tar --exclude="*#" --exclude="*~" --exclude="Makefile" --exclude="ChangeLog" --exclude="COPYING" --exclude="*.gif" --exclude="README.md" --exclude="Readme.org" -C $(PACKAGE_DIR)/.. $(PACKAGE_NAME)
+	tar cvf ../$(PACKAGE_NAME).tar --exclude="*#" --exclude="*~" --exclude="Makefile" --exclude="ChangeLog" --exclude="ChangeLog" --exclude="COPYING" --exclude="*.gif" --exclude="*.md" --exclude="*.org" -C $(PACKAGE_DIR)/.. $(PACKAGE_NAME)
 
 $(PACKAGE_DIR):
 	mkdir $@
