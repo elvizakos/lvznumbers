@@ -1,3 +1,11 @@
+2020-04-19  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
+
+	* README.md: Update README.md to match command and function names.
+
+	* Makefile (VERSION): set version to 1.2.5
+
+	* lvznumbers-mode.el: Use "lvznumbers" namespace.
+
 2019-10-26  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
 
 	* README.md (Examples): Change key combnations for do-math-on-region, do-math-on-kill-ring-and-paste, do-math-on-kill-ring-and-paste alt, do-math-on-region-and-copy, and do-math-on-region-and-copy alt.
