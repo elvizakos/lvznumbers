@@ -182,8 +182,8 @@ Key | Command / Function | Universal argument | Description
 --- | --- | --- | ---
 <kbd>C-c &lt;up&gt;</kbd> | `lvznumbers/increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor. This shortcut is defined by the `lvznumbers/increment-keycomb` variable.
 <kbd>C-x +</kbd> | `lvznumbers/increment-number-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the decimal number under cursor.
-<kbd>C-c &lt;down&gt;</kbd> | `lvznumbers/decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers/decrement-keycomb`.
-<kbd>C-x -</kbd> | `lvznumbers/decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. |Decrease the decimal number under cursor.
+<kbd>C-c &lt;down&gt;</kbd> | `lvznumbers/decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. | Decrease the decimal under cursor. This shortcut is defined by the `lvznumbers/decrement-keycomb`.
+<kbd>C-x -</kbd> | `lvznumbers/decrement-number-at-point` | If universal argument used, the number will be decreased by universal arguments value. | Decrease the decimal number under cursor.
 <kbd>C-x &lt;up&gt;</kbd> | `lvznumbers/increment-digit-at-point` |  | Increase the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers/increment-digit-keycomb`.
 <kbd>C-x &lt;down&gt;</kbd> | `lvznumbers/decrement-digit-at-point` | | Decrease the value of the digit under(before) cursor. This shortcut is defined by the `lvznumbers/decrement-digit-keycomb`.
 <kbd>C-c H</kbd> | `lvznumbers/increment-hex-at-point` | If universal argument used, the number will be increased by universal arguments value. | Increase the hexadecimal number under cursor. This shortcut is defined by the `lvznumbers/increment-hex-keycomb`.
