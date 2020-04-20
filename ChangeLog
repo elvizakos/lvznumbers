@@ -1,3 +1,10 @@
+2020-04-20  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
+
+	* Readme.org: Update shortcuts reference table.
+	Update Table of contents.
+
+	* lvznumbers-mode.el: Add lvznumbers/lighter for customize group under lvznumbers.
+
 2020-04-19  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
 
 	* README.md: Update README.md to match command and function names.
