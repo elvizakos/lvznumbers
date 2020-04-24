@@ -26,7 +26,7 @@
 (defgroup lvznumbers nil "LVzNumbers minor mode settings."
   :group 'tools)
 
-(defcustom lvznumbers/lighter "LVz0-9" "Label of minor mode for the modeline"
+(defcustom lvznumbers/lighter " LVz0-9" "Label of minor mode for the modeline"
   :type 'string
   :group 'lvznumbers)
 (defcustom lvznumbers/increment-decrement 1 "Increment/Decrement default value."
@@ -552,7 +552,7 @@
 ;;---- MINOR MODE -----------------------------------------------------------------
 
 (define-minor-mode lvznumbers-mode "Minor mode for working with numbers and math."
-  :lighter (concat " " lvznumbers/lighter)
+  :lighter lvznumbers/lighter
   :keymap (let ()
 
 			;;---- SHORTCUTS ------------------------------------------------------------------
