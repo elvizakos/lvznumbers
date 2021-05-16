@@ -101,6 +101,7 @@
 (defcustom lvznumbers/do-region-and-copy-keycomb-alt  "C-; m C-c" "Default alternative key combination for running do-math-on-region-and-copy command."
   :type 'string
   :group 'lvznumbers/keys)
+
 ;;---- FUNCTIONS ------------------------------------------------------------------
 
 (defun lvznumbers/increment-number-at-point ( x ) "Function for increment by the value of \"lvznumbers/increment-decrement\" the decimal number under cursor."
