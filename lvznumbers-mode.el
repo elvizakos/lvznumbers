@@ -550,6 +550,9 @@
 			 )
 		 (error "There is no selection.")))
 
+(defun lvznumbers/round ( number digits ) "round the given number to the given number of digits."
+	   (format (format "%%.%df" digits) number))
+
 ;;---- MINOR MODE -----------------------------------------------------------------
 
 (define-minor-mode lvznumbers-mode "Minor mode for working with numbers and math."
