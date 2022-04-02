@@ -1,3 +1,12 @@
+2022-04-02  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
+
+	* VERSION set ot 1.3.1
+
+	* Makefile (VERSION): Add version to 1.3.1
+
+	* lvznumbers-mode.el (lvznumbers/round): Add lvznumbers/round function for rounding numbers to the selected digit.
+	(lvznumbers/round): Add description for "lvznumbers/round" function.
+
 2020-04-24  elvizakos  <elvizakos@ubuntu.lvzhome.lan>
 
 	* lvznumbers-mode.el (lvznumbers/lighter): Update lvznumbers lighter.
